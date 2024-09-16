@@ -314,7 +314,7 @@ if index(g:bundle_group, 'nerdtree') >= 0
 	noremap <space>nn :NERDTree<cr>
 	noremap <space>no :NERDTreeFocus<cr>
 	noremap <space>nm :NERDTreeMirror<cr>
-	noremap <space>nt :NERDTreeToggle<cr>
+	noremap <space>e :NERDTreeToggle<cr>
 endif
 
 
@@ -420,6 +420,9 @@ if index(g:bundle_group, 'leaderf') >= 0
 	if has('python') || has('python3')
 		Plug 'Yggdroot/LeaderF'
 
+
+		let g:Lf_ShortcutF = "<leader>ff"
+		
 		" CTRL+p 打开文件模糊匹配
 		let g:Lf_ShortcutF = '<c-p>'
 
@@ -429,17 +432,33 @@ if index(g:bundle_group, 'leaderf') >= 0
 		" CTRL+n 打开最近使用的文件 MRU，进行模糊匹配
 		noremap <c-n> :LeaderfMru<cr>
 
-		" ALT+p 打开函数列表，按 i 进入模糊匹配，ESC 退出
-		noremap <m-p> :LeaderfFunction!<cr>
+		" LEADER+fo 打开函数列表，按 i 进入模糊匹配，ESC 退出
+		noremap <leader>fo :LeaderfFunction!<cr>
 
-		" ALT+SHIFT+p 打开 tag 列表，i 进入模糊匹配，ESC退出
-		noremap <m-P> :LeaderfBufTag!<cr>
+		" LEADER+ft 打开 tag 列表，i 进入模糊匹配，ESC退出
+		noremap <leader>ft :LeaderfBufTag!<cr>
 
-		" ALT+n 打开 buffer 列表进行模糊匹配
-		noremap <m-n> :LeaderfBuffer<cr>
+		" LEADER+ftt 全局 tags 模糊匹配
+		noremap <leader>ftt :LeaderfTag<cr>
 
-		" ALT+m 全局 tags 模糊匹配
-		noremap <m-m> :LeaderfTag<cr>
+		" LEADER+fn 打开 buffer 列表进行模糊匹配
+		noremap <leader>fn :LeaderfBuffer<cr>
+
+		" SPACE+fl 在ripgrep 在当前 buffer 中，搜索每一 line 的内容
+		noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+
+		" CTRL+b 使用 ripgrep 在当前 buffer 进行搜索
+		noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
+
+		" CTRL+F 使用 ripgrep 在所有文件中搜索
+		noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+
+		" gf 使用 ripgrep 在当前 wrod 中搜索匹配路径中的内容
+		xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+
+		" go recall
+		noremap go :<C-U>Leaderf! rg --recall<CR>
+
 
 		" 最大历史文件保存 2048 个
 		let g:Lf_MruMaxFiles = 2048
@@ -609,3 +628,8 @@ let g:ycm_filetype_whitelist = {
 			\ }
 
 
+
+"----------------------------------------------------------------------
+" Custom
+"----------------------------------------------------------------------
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
