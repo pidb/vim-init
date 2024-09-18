@@ -633,3 +633,6 @@ let g:ycm_filetype_whitelist = {
 " Custom
 "----------------------------------------------------------------------
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'tomlion/vim-solidity'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+
